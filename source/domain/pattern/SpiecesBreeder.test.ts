@@ -39,7 +39,7 @@ describe("Spieces breeder", () => {
       const synapses = baby.Synapses;
       should(synapses).have.length(2);
       for (let i = 0; i < 2; i++) {
-        should([mommy.Synapses[i].getWeight(), daddy.Synapses[i].getWeight()]).containEql(synapses[i].getWeight());
+        should([mommy.Synapses[i].Weight, daddy.Synapses[i].Weight]).containEql(synapses[i].Weight);
       }
     }
   });
@@ -51,7 +51,7 @@ describe("Spieces breeder", () => {
     const breeder = new SpiecesBreeder(randomizer.object);
     const baby = breeder.Breed(mommy, daddy);
     for(let i = 0; i < 2; i++) {
-      should(baby.Synapses[i].getWeight()).equal(mommy.Synapses[i].getWeight())
+      should(baby.Synapses[i].Weight).equal(mommy.Synapses[i].Weight)
     }
   });
 
@@ -62,7 +62,7 @@ describe("Spieces breeder", () => {
     const breeder = new SpiecesBreeder(randomizer.object);
     const baby = breeder.Breed(mommy, daddy);
     for(let i = 0; i < 2; i++) {
-      should(baby.Synapses[i].getWeight()).equal(daddy.Synapses[i].getWeight())
+      should(baby.Synapses[i].Weight).equal(daddy.Synapses[i].Weight)
     }
   });
 });

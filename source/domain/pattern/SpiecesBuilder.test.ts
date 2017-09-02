@@ -33,7 +33,7 @@ describe("Spieces builder", () => {
     const synapses = spieces.Synapses;
     should(synapses).have.length(2);
     for (let i = 0; i < 2; i++) {
-      should(synapses[i].getWeight()).equal(3);
+      should(synapses[i].Weight).equal(3);
     }
   });
 
