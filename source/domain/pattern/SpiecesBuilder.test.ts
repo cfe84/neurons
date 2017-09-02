@@ -35,5 +35,15 @@ describe("Spieces builder", () => {
     for (let i = 0; i < 2; i++) {
       should(synapses[i].getWeight()).equal(3);
     }
-  })
+  });
+
+  it("should set synapses correct in the neurons", () => {
+    const builder = new SpiecesBuilder();
+    const spieces = builder
+      .OutputNeuronsCount(1)
+      .HiddenNeuronsCount(1)
+      .InputNeuronsCount(1)
+      .RandomizeSynapses(2, 2)
+      .Build();
+  });
 });

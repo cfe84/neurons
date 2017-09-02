@@ -1,18 +1,28 @@
 import Synapse from "./Synapse";
 
 class Neuron {
-  private synapses: Synapse[];
+  private outboundSynapses: Synapse[];
+  private inboundSynapses: Synapse[];
 
   constructor() {
-    this.synapses = [];
+    this.outboundSynapses = [];
+    this.inboundSynapses = [];
   }
 
-  public addSynapse(synapse: Synapse) {
-    this.synapses.push(synapse);
+  public AddOutboundSynapse(synapse: Synapse) {
+    this.outboundSynapses.push(synapse);
   }
 
-  public getSynapses(): Synapse[] {
-    return this.synapses;
+  get OutboundSynapses(): Synapse[] {
+    return this.outboundSynapses;
+  }
+
+  get InboundSynapses(): Synapse[] {
+    return this.inboundSynapses;
+  }
+
+  public AddInboundSynapse(value: Synapse) {
+    this.inboundSynapses.push(value);
   }
 }
 

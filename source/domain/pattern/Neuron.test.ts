@@ -5,14 +5,23 @@ import Neuron from "./Neuron";
 import Synapse from "./Synapse";
 
 describe("Neurons",() => {
-  it("adds synapses", () => {
+  it("adds outbound synapses", () => {
     const neuron = new Neuron();
     const synapse = new Synapse(neuron, 0);
-    neuron.addSynapse(synapse);
+    neuron.AddOutboundSynapse(synapse);
 
-    const synapses = neuron.getSynapses();
+    should(neuron.OutboundSynapses).have.length(1);
+    should(neuron.OutboundSynapses[0]).be.equal(synapse);
+    should(neuron.InboundSynapses).have.length(0);
+  });
 
-    should(synapses.length).be.equal(1);
-    should(synapses[0]).be.equal(synapse);
+  it("adds inbound synapses", () => {
+    const neuron = new Neuron();
+    const synapse = new Synapse(neuron, 0);
+    neuron.AddInboundSynapse(synapse);
+
+    should(neuron.InboundSynapses).have.length(1);
+    should(neuron.InboundSynapses[0]).be.equal(synapse);
+    should(neuron.OutboundSynapses).have.length(0);
   });
 });

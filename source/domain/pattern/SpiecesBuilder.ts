@@ -52,7 +52,8 @@ class SpiecesBuilder {
         const weight = this.randomizer.Randomize(minWeight, maxWeight);
         let synapse = new Synapse(toNeuron, weight);
         this.synapses.push(synapse);
-        fromNeuron.addSynapse(synapse);
+        fromNeuron.AddOutboundSynapse(synapse);
+        toNeuron.AddInboundSynapse(synapse);
       }
     }
   }
