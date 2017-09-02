@@ -36,7 +36,7 @@ describe("Spieces breeder", () => {
       should(baby.InputNeurons).have.length(1);
       should(baby.HiddenNeurons).have.length(1);
       should(baby.OutputNeurons).have.length(1);
-      const synapses = baby.Synapses;
+      const synapses = baby.Synapsges;
       should(synapses).have.length(2);
       for (let i = 0; i < 2; i++) {
         should([mommy.Synapses[i].Weight, daddy.Synapses[i].Weight]).containEql(synapses[i].Weight);
