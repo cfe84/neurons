@@ -8,12 +8,13 @@ describe("Spieces builder", () => {
   it("sets the neurons", () => {
     const builder = new SpiecesBuilder();
     const spieces = builder
-      .InputNeuronsCount(5)
+      .InputNeuronsCount(5, 2, 2)
       .HiddenNeuronsCount(3)
       .OutputNeuronsCount(2)
       .Build();
 
     should(spieces.InputNeurons).have.length(5);
+    should(spieces.InputNeurons[0].FiringThreshold).equal(2);
     should(spieces.HiddenNeurons).have.length(3);
     should(spieces.OutputNeurons).have.length(2);
     should(spieces.Synapses).be.undefined();

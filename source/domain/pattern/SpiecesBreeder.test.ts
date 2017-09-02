@@ -10,9 +10,9 @@ let createSpieces = function (weight: number) {
   const randomizer = TypeMoq.Mock.ofType<IRandomizer>();
   randomizer.setup((randomizer) => randomizer.Randomize(1, 4)).returns(() => weight);
   const mommy = new SpiecesBuilder(randomizer.object)
-    .InputNeuronsCount(1)
-    .HiddenNeuronsCount(1)
-    .OutputNeuronsCount(1)
+    .InputNeuronsCount(1, 0, 5)
+    .HiddenNeuronsCount(1, 0, 5)
+    .OutputNeuronsCount(1, 0, 5)
     .RandomizeSynapses(1, 4)
     .Build();
   return mommy;
@@ -53,6 +53,9 @@ describe("Spieces breeder", () => {
     for(let i = 0; i < 2; i++) {
       should(baby.Synapses[i].Weight).equal(mommy.Synapses[i].Weight)
     }
+    should(baby.InputNeurons[0].FiringThreshold).equal(mommy.InputNeurons[0].FiringThreshold);
+    should(baby.HiddenNeurons[0].FiringThreshold).equal(mommy.HiddenNeurons[0].FiringThreshold);
+    should(baby.OutputNeurons[0].FiringThreshold).equal(mommy.OutputNeurons[0].FiringThreshold);
   });
 
   it("copies the weights from daddy", () => {
@@ -64,5 +67,8 @@ describe("Spieces breeder", () => {
     for(let i = 0; i < 2; i++) {
       should(baby.Synapses[i].Weight).equal(daddy.Synapses[i].Weight)
     }
+    should(baby.InputNeurons[0].FiringThreshold).equal(daddy.InputNeurons[0].FiringThreshold);
+    should(baby.HiddenNeurons[0].FiringThreshold).equal(daddy.HiddenNeurons[0].FiringThreshold);
+    should(baby.OutputNeurons[0].FiringThreshold).equal(daddy.OutputNeurons[0].FiringThreshold);
   });
 });

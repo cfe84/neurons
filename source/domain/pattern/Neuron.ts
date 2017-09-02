@@ -61,6 +61,10 @@ class Neuron {
     this.firingThreshold = threshold;
   }
 
+  get FiringThreshold(): number {
+    return this.firingThreshold;
+  }
+
   get Firing(): boolean {
     return this.firing;
   }

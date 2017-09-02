@@ -17,24 +17,25 @@ class SpiecesBuilder {
     this.outputNeurons = [];
   }
 
-  public InputNeuronsCount(count: number): SpiecesBuilder {
-    this.initalizeNeuronArray(count, this.inputNeurons);
+  public InputNeuronsCount(count: number, minThreshold: number = 0, maxThreshold: number = 0): SpiecesBuilder {
+    this.initalizeNeuronArray(count, this.inputNeurons, minThreshold, maxThreshold);
     return this;
   }
 
-  public OutputNeuronsCount(count: number): SpiecesBuilder {
-    this.initalizeNeuronArray(count, this.outputNeurons);
+  public OutputNeuronsCount(count: number, minThreshold: number = 0, maxThreshold: number = 0): SpiecesBuilder {
+    this.initalizeNeuronArray(count, this.outputNeurons, minThreshold, maxThreshold);
     return this;
   }
 
-  public HiddenNeuronsCount(count: number): SpiecesBuilder {
-    this.initalizeNeuronArray(count, this.hiddenNeurons);
+  public HiddenNeuronsCount(count: number, minThreshold: number = 0, maxThreshold: number = 0): SpiecesBuilder {
+    this.initalizeNeuronArray(count, this.hiddenNeurons, minThreshold, maxThreshold);
     return this;
   }
 
-  private initalizeNeuronArray(count: number, array: Neuron[]) {
+  private initalizeNeuronArray(count: number, array: Neuron[], minThreshold: number, maxThreshold: number) {
     for (let i = 0; i < count; i++) {
       let neuron = new Neuron();
+      neuron.FiringThreshold = this.randomizer.Randomize(minThreshold, maxThreshold);
       array.push(neuron);
     }
   }
