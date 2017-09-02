@@ -16,6 +16,10 @@ class Synapse {
   public getWeight(): Number {
     return this.weight;
   }
+
+  public setWeight(weight: number) {
+    this.weight = weight;
+  }
 }
 
 export default Synapse;

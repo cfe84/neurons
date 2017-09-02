@@ -12,4 +12,13 @@ describe("Synapses", () => {
      should(synapse.getEndNeuron()).be.equal(neuron);
      should(synapse.getWeight()).be.equal(10);
   });
+
+  it("sets weight", () => {
+    const neuron = new Neuron();
+    const synapse = new Synapse(neuron, 10);
+
+    synapse.setWeight(3);
+
+    should(synapse.getWeight()).be.equal(3);
+  })
 });
