@@ -13,10 +13,10 @@ describe("Spieces builder", () => {
       .OutputNeuronsCount(2)
       .Build();
 
-    should(spieces.getInputNeurons()).have.length(5);
-    should(spieces.getHiddenNeurons()).have.length(3);
-    should(spieces.getOutputNeurons()).have.length(2);
-    should(spieces.getSynapses()).be.undefined();
+    should(spieces.InputNeurons).have.length(5);
+    should(spieces.HiddenNeurons).have.length(3);
+    should(spieces.OutputNeurons).have.length(2);
+    should(spieces.Synapses).be.undefined();
   });
 
   it("should randomize the synapses", () => {
@@ -30,7 +30,7 @@ describe("Spieces builder", () => {
       .RandomizeSynapses(-6, 6)
       .Build();
 
-    const synapses = spieces.getSynapses();
+    const synapses = spieces.Synapses;
     should(synapses).have.length(2);
     for (let i = 0; i < 2; i++) {
       should(synapses[i].getWeight()).equal(3);
@@ -45,5 +45,19 @@ describe("Spieces builder", () => {
       .InputNeuronsCount(1)
       .RandomizeSynapses(2, 2)
       .Build();
+
+    should(spieces.InputNeurons).have.length(1);
+    should(spieces.HiddenNeurons).have.length(1);
+    should(spieces.OutputNeurons).have.length(1);
+
+    should(spieces.InputNeurons[0].InboundSynapses).have.length(0);
+    should(spieces.InputNeurons[0].OutboundSynapses).have.length(1);
+    should(spieces.HiddenNeurons[0].InboundSynapses).have.length(1);
+    should(spieces.HiddenNeurons[0].OutboundSynapses).have.length(1);
+    should(spieces.OutputNeurons[0].InboundSynapses).have.length(1);
+    should(spieces.OutputNeurons[0].OutboundSynapses).have.length(0);
+
+    should(spieces.InputNeurons[0].OutboundSynapses[0]).equal(spieces.HiddenNeurons[0].InboundSynapses[0]);
+    should(spieces.HiddenNeurons[0].OutboundSynapses[0]).equal(spieces.OutputNeurons[0].InboundSynapses[0]);
   });
 });

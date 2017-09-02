@@ -9,16 +9,16 @@ class Spieces {
 
   }
 
-  public getInputNeurons(): Neuron[] {
+  get InputNeurons(): Neuron[] {
     return this.inputNeurons;
   };
-  public getHiddenNeurons(): Neuron[] {
+  get HiddenNeurons(): Neuron[] {
     return this.hiddenNeurons;
   };
-  public getOutputNeurons(): Neuron[] {
+  get OutputNeurons(): Neuron[] {
     return this.outputNeurons;
   };
-  public getSynapses(): Synapse[] {
+  get Synapses(): Synapse[] {
     return this.synapses;
   };
 }
