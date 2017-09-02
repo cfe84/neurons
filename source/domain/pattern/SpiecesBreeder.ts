@@ -3,18 +3,23 @@ import MathRandomizer from "../utils/MathRandomizer";
 import Spieces from "./Spieces";
 import SpiecesBuilder from "./SpiecesBuilder";
 
-class SpiecesBreader {
+class SpiecesBreeder {
   constructor(private randomizer: IRandomizer = new MathRandomizer()) {
 
   }
 
   public Breed(mommy: Spieces, daddy: Spieces): Spieces {
     const baby = this.createNewSpieces(mommy);
+    this.breedSynapses(baby, mommy, daddy);
+    return baby;
+  }
+
+  private breedSynapses(baby: Spieces, mommy: Spieces, daddy: Spieces) {
     const babySynapses = baby.getSynapses();
     const mommySynapses = mommy.getSynapses();
     const daddySynapses = daddy.getSynapses();
-    const headsOrTails = () => this.randomizer.Randomize(0, 1) > .5;
-    for(let i = 0; i < babySynapses.length; i++) {
+    const headsOrTails = () => this.randomizer.Randomize(0, 1) < .5;
+    for (let i = 0; i < babySynapses.length; i++) {
       babySynapses[i] = headsOrTails() ? mommySynapses[i] : daddySynapses[i];
     }
   }
@@ -31,4 +36,4 @@ class SpiecesBreader {
   }
 }
 
-export default SpiecesBreader;
+export default SpiecesBreeder;
