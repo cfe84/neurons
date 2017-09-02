@@ -1,0 +1,12 @@
+{
+  "name": "ml",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha source/**/*.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
