@@ -2,20 +2,25 @@ import Neuron from "./Neuron";
 import Synapse from "./Synapse";
 
 class Spieces {
-  private inputNeurons: Neuron[];
-  private hiddenNeurons: Neuron[];
-  private outputNeurons: Neuron[];
-  private synapses: Synapse[];
+  constructor(private inputNeurons: Neuron[],
+              private hiddenNeurons: Neuron[],
+              private outputNeurons: Neuron[],
+              private synapses: Synapse[]) {
 
-  constructor(inputNeurons: Neuron[],
-              hiddenNeurons: Neuron[],
-              outputNeurons: Neuron[],
-              synapses: Synapse[]) {
-    this.inputNeurons = inputNeurons;
-    this.hiddenNeurons = hiddenNeurons;
-    this.outputNeurons = outputNeurons;
-    this.synapses = synapses;
   }
+
+  public getInputNeurons(): Neuron[] {
+    return this.inputNeurons;
+  };
+  public getHiddenNeurons(): Neuron[] {
+    return this.hiddenNeurons;
+  };
+  public getOutputNeurons(): Neuron[] {
+    return this.outputNeurons;
+  };
+  public getSynapses(): Synapse[] {
+    return this.synapses;
+  };
 }
 
 export default Spieces;
