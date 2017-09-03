@@ -3,7 +3,7 @@ import Neuron from "./Neuron";
 class Synapse {
   private endNeuron: Neuron;
   private weight: number;
-  private firing: boolean;
+  private activation: number;
   private onStateChangedCallbacks: Array<Function> = [];
 
   constructor(endNeuron: Neuron, weight: number) {
@@ -17,16 +17,10 @@ class Synapse {
 
   private onStateChanged() {
     this.onStateChangedCallbacks.forEach((callback) => callback(this));
-
   }
 
-  public Fire() : void {
-    this.firing = true;
-    this.onStateChanged();
-  }
-
-  public Shutdown(): void {
-    this.firing = false;
+  public Activate(input: number) : void {
+    this.activation = input * this.weight;
     this.onStateChanged();
   }
 
@@ -42,8 +36,8 @@ class Synapse {
     this.weight = value;
   }
 
-  get Firing(): boolean {
-    return this.firing;
+  get Activation(): number {
+    return this.activation;
   }
 }
 

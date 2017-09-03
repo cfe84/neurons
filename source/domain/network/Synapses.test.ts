@@ -22,7 +22,7 @@ describe("Synapse", () => {
     should(synapse.Weight).be.equal(3);
   });
 
-  it("fires correctly and calls back", () => {
+  it("applies weight and calls back", () => {
     let calledBack = false;
     const callback = (syn: Synapse) => calledBack = syn == synapse;
     const neuron = new Neuron();
@@ -30,23 +30,9 @@ describe("Synapse", () => {
     neuron.AddInboundSynapse(synapse);
     synapse.AddOnStateChangedCallback(callback);
 
-    synapse.Fire();
+    synapse.Activate(5);
 
     should(calledBack).be.true();
-    should(synapse.Firing).be.true();
-  });
-
-  it("shuts down correctly and calls back", () => {
-    let calledBack = false;
-    const callback = (syn: Synapse) => calledBack = syn == synapse;
-    const neuron = new Neuron();
-    const synapse = new Synapse(neuron, 10);
-    neuron.AddInboundSynapse(synapse);
-    synapse.AddOnStateChangedCallback(callback);
-
-    synapse.Shutdown();
-
-    should(calledBack).be.true();
-    should(synapse.Firing).be.false();
+    should(synapse.Activation).equal(50);
   });
 });

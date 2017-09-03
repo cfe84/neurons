@@ -1,19 +1,25 @@
 import Synapse from "./Synapse";
+import IActivationFunction from "./IActivationFunction";
+import SigmoidActivationFunction from "./SigmoidActivationFunction";
 
 class Neuron {
   private outboundSynapses: Synapse[];
   private inboundSynapses: Synapse[];
-  private firing: boolean = false;
+  private activation: number = 0;
   private firingThreshold: number = 0;
+  private activationFunction: IActivationFunction;
 
-  constructor() {
+  constructor(activationFunction: IActivationFunction = new SigmoidActivationFunction()) {
     this.outboundSynapses = [];
     this.inboundSynapses = [];
+    this.activationFunction = activationFunction;
   }
 
-  private triggerState(firing: boolean) {
-    this.firing = firing;
-    this.outboundSynapses.forEach((synapse) => this.firing ? synapse.Fire() : synapse.Shutdown());
+  private activate(input: number) {
+    const activation = this.activationFunction.f(input);
+    const activated = activation >= this.firingThreshold;
+    this.activation = activated ? activation : 0;
+    this.outboundSynapses.forEach((synapse) => synapse.Activate(this.activation));
   }
 
   private checkInboundSynapses() {
@@ -22,22 +28,15 @@ class Neuron {
     }
   }
 
-  public Fire() : void {
+  public Fire(input: number) : void {
     this.checkInboundSynapses();
-    this.triggerState(true);
-  }
-
-  public Shutdown(): void {
-    this.checkInboundSynapses();
-    this.triggerState(false);
+    this.activate(input);
   }
 
   private OnInboundSynapseStateChanged(): void {
-    const firingSynapsesWeightSum = this.inboundSynapses.reduce(
-      (sum, synapse) => sum + (synapse.Firing ? synapse.Weight : 0)
-      , 0);
-    const shouldFire = firingSynapsesWeightSum > this.firingThreshold;
-    this.triggerState(shouldFire);
+    const synapsesActivationSum = this.inboundSynapses.reduce(
+      (sum, synapse) => sum + synapse.Activation, 0);
+    this.activate(synapsesActivationSum);
   }
 
   public AddOutboundSynapse(synapse: Synapse) {
@@ -65,8 +64,8 @@ class Neuron {
     return this.firingThreshold;
   }
 
-  get Firing(): boolean {
-    return this.firing;
+  get Activation(): number {
+    return this.activation;
   }
 }
 
