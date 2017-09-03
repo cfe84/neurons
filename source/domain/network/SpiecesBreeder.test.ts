@@ -8,7 +8,9 @@ import SpiecesBreeder from "./SpiecesBreeder";
 
 let createSpieces = function (weight: number) {
   const randomizer = TypeMoq.Mock.ofType<IRandomizer>();
-  randomizer.setup((randomizer) => randomizer.Randomize(1, 4)).returns(() => weight);
+  randomizer.setup(
+    (randomizer) => randomizer.Randomize(TypeMoq.It.isAny(), TypeMoq.It.isAny()))
+    .returns(() => weight);
   const mommy = new SpiecesBuilder(randomizer.object)
     .InputNeuronsCount(1, 0, 5)
     .HiddenNeuronsCount(1, 0, 5)
@@ -21,8 +23,7 @@ let createSpieces = function (weight: number) {
 describe("Spieces breeder", () => {
   const mommysWeight = 2;
   const daddysWeight = 4;
-  let mommy = createSpieces(mommysWeight);
-  let daddy = createSpieces(daddysWeight);
+  let mommy: Spieces, daddy: Spieces;
 
   before(() => {
     mommy = createSpieces(mommysWeight);
@@ -53,6 +54,7 @@ describe("Spieces breeder", () => {
     for(let i = 0; i < 2; i++) {
       should(baby.Synapses[i].Weight).equal(mommy.Synapses[i].Weight)
     }
+    should(baby.InputNeurons[0].FiringThreshold).not.be.undefined();
     should(baby.InputNeurons[0].FiringThreshold).equal(mommy.InputNeurons[0].FiringThreshold);
     should(baby.HiddenNeurons[0].FiringThreshold).equal(mommy.HiddenNeurons[0].FiringThreshold);
     should(baby.OutputNeurons[0].FiringThreshold).equal(mommy.OutputNeurons[0].FiringThreshold);
